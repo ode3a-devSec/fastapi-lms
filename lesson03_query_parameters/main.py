@@ -2,15 +2,17 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-# http://127.0.0.1:8000/items/20
-# http://127.0.0.1:8000/items/20?q=10
-# http://127.0.0.1:8000/items/20?short=True
-# http://127.0.0.1:8000/items/20?q=10&short=True
+
+# http://127.0.0.1:8000/users/1/items/2
+# http://127.0.0.1:8000/users/1/items/2?q=hello
+# http://127.0.0.1:8000/users/1/items/2?short=True
 
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: str, q: str | None = None, short: bool = False):
-    item = {"item_id": item_id}
+@app.get("/users/{user_id}/items/{item_id}")
+async def read_user_item(
+    user_id: int, item_id: str, q: str | None = None, short: bool = False
+):
+    item = {"item_id": item_id, "owner_id": user_id}
     if q:
         item.update({"q": q})
     if not short:
