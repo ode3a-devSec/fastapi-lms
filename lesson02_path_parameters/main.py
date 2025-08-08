@@ -3,9 +3,6 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-# path parameters
-
-
-@app.get("/items/{item_id}")
-async def read_time(item_id):
-    return {"item_id": item_id}
+@app.get("/files/{file_path:path}")
+async def read_file(file_path: str):
+    return {"file_path": file_path}
